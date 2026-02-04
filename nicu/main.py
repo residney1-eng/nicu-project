@@ -6,6 +6,7 @@ import time
 from noise_sensor import get_noise_level
 from alarm_logic import inside_db
 from led import led_on, led_off
+from display import draw_screen
 from config import SAMPLE_INTERVAL, ALARM_THRESHOLD_DB, ALARM_RESET_DB, ALARM_COOLDOWN_SEC
 
 # Create ONE alarm instance
@@ -19,7 +20,6 @@ while True:
     noise_level = get_noise_level()
     print(f"Noise Level: {noise_level:.1f} dB")
 
-    # Update alarm state
     alarm.process_noise(noise_level)
 
     # LED + alarm status
@@ -30,5 +30,13 @@ while True:
         led_off()
         print("Alarm: OFF")
 
-    time.sleep(SAMPLE_INTERVAL)
+    draw_screen(
+        outside_db=noise_level,
+	outside_avg=noise_level,
+	inside_db=noise_level,
+	inside_avg=noise_level,
+	alarm_active=alarm.is_active(),
+	alarm_count=alarm.get_count()
+    )
 
+    time.sleep(SAMPLE_INTERVAL)
