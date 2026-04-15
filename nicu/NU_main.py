@@ -1,12 +1,14 @@
+### NOT USED
+
 ### TEST OF EVERYTHING ###
 ## this is the main coding, everything imported here, good to demo ##
 # control + C to stop
 
 import time
 from noise_sensor import get_noise_level
-from alarm_logic import inside_db
-from led import led_on, led_off
-from display import draw_screen
+from nicu.NU_alarm_logic import inside_db
+from nicu.NU_led import led_on, led_off
+from nicu.NU_display import draw_screen
 from config import SAMPLE_INTERVAL, ALARM_THRESHOLD_DB, ALARM_RESET_DB, ALARM_COOLDOWN_SEC
 
 # Create ONE alarm instance

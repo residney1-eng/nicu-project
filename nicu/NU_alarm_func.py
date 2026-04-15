@@ -1,18 +1,18 @@
-### COMBINED CODE W HONNAH ###
+### NOT USED
 
-threshold_db = 55
-reset_db = 52
-cooldown = 5
+### ALARM ACTIVITY DISPLAYED 
 
 import time
 from datetime import date
 
+
 class inside_db:
-    def __init__(self, threshold_db=55, reset_db=52, cooldown=5):
+    def __init__(self, threshold_db=55, reset_db=50, cooldown=5):
         self.threshold_db = threshold_db
         self.reset_db = reset_db
         self.cooldown = cooldown
 
+        self.alarm_enabled = True
         self.alarm_active = False
         self.last_alarm_time = 0
         self.alarm_count_today = 0
@@ -21,10 +21,14 @@ class inside_db:
     def process_noise(self, db_level):
         now = time.time()
 
-        # Reset daily count
+        # Reset daily count if day changed
         if date.today() != self.current_day:
             self.alarm_count_today = 0
             self.current_day = date.today()
+
+        if not self.alarm_enabled:
+            self.alarm_active = False
+            return False
 
         # Trigger alarm
         if (
@@ -35,13 +39,19 @@ class inside_db:
             self.alarm_active = True
             self.last_alarm_time = now
             self.alarm_count_today += 1
+            return True
 
-        # Reset alarm (hysteresis)
-        elif db_level <= self.reset_db:
+        # Reset alarm state (hysteresis)
+        if db_level <= self.reset_db:
             self.alarm_active = False
 
-    def is_active(self):
-        return self.alarm_active
+        return False
+
+    def set_enabled(self, state: bool):
+        self.alarm_enabled = state
 
     def get_count(self):
         return self.alarm_count_today
+
+    def is_active(self):
+        return self.alarm_active

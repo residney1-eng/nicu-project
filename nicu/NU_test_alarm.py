@@ -1,7 +1,9 @@
+### NOT USED
+
 ### TEST WITHOUT THE HARDWARE (TEMP)
 
 import time
-from alarm_func import inside_db
+from nicu.NU_alarm_func import inside_db
 
 alarm = inside_db()
 
