@@ -1,3 +1,4 @@
+# EDITING 
 ### ANC coding on pi 2 ###
 
 import sounddevice as sd
@@ -5,23 +6,36 @@ import numpy as np
 import socket
 import queue
 import time
-#import math ---left, right---
-
 
 # Pi to pi connector
 HOST = "10.13.140.19"
 PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-SAMPLE_RATE = 44100
-BLOCK_SIZE = 4096 
+
+FS =48000 # alternate between 44100 and 48000 to see which is best
+BLOCK_SIZE = 512
+
+# check sd query
+INPUT_DEVICE = 1
+OUTPUT_DEVICE = 2 
+
 OUTPUT_RATE = 48000
-INPUT_DEVICE = 2 #1
-OUTPUT_DEVICE = 3 #2
+
+
 last_freq = 0
 freq_queue = queue.Queue(max_size=1)
 last_rms = 0
+
+
 print_counter = 0
+
+
+
+
+
+
+
 
 def audio_callback(indata, frames, time, status):
     global last_freq, last_rms, print_counter
@@ -68,17 +82,3 @@ while True:
         pass
     except Exception as e:
         print("audio error: {e}")
-
-(### left and right speakers , if needed
-
-#        if freq> 50 and freq < 3000: 
-#            t = np.linspace(0, 0.15, int(OUTPUT_RATE * 0.15))
-                
-#                left = 1.0 * np.sin(2 * np.pi * freq * t)
-#                right = - 1.0 * np.sin(2 * np.pi * freq * t)
-            
-#                stereo = np.column_stack((left, right))
-#                sd.play(stereo, OUTPUT_RATE, device=OUTPUT_DEVICE)
-#            except Exception as e:
-#                pass
-)
