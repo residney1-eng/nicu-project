@@ -8,7 +8,7 @@ import queue
 import time
 
 # Pi to pi connector
-HOST = "10.13.140.19"
+HOST = "10.13.140.19" # check every power on: Hostname -I
 PORT = 5005
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -18,7 +18,7 @@ BLOCK_SIZE = 512
 
 # check sd query
 INPUT_DEVICE = 1
-OUTPUT_DEVICE = 2 
+OUTPUT_DEVICE = 1 
 
 OUTPUT_RATE = 48000
 
