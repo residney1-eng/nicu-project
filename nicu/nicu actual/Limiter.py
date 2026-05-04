@@ -1,4 +1,4 @@
-import numpy as np # Import the NumPy library for numerical operations on arrays.
+import numpy as np 
 
 def limit_audio(signal, threshold=0.15): # Limit the audio signal to a specified threshold to prevent clipping.
     signal = np.asarray(signal, dtype=np.float32)
